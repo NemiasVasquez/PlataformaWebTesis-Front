@@ -5,6 +5,7 @@ import { BASE_URL } from '../../Config/ConsultaApiBack.tsx';
 const STEPS = [
     { title: "Original", path: "entrada", desc: "Imagen base", ext: "jpeg" },
     { title: "Segmentación", path: "segmentada", desc: "Detección conjuntiva", ext: "jpeg" },
+    { title: "Área", path: "area", desc: "Ubicación en ojo", ext: "jpeg" },
     { title: "Procesado", path: "png", desc: "Formato digital", ext: "png" },
     { title: "Redimensión", path: "resize", desc: "Ajuste IA", ext: "png" },
 ];
