@@ -1,18 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
-import { consultaApiBack } from '../Config/ConsultaApiBack.tsx';
-import { UploadForm } from '../Components/Dashboard/UploadForm.jsx';
-import { ResultSummary } from '../Components/Dashboard/ResultSummary.jsx';
-import { ProcessingSteps } from '../Components/Dashboard/ProcessingSteps.jsx';
+import { consultaApiBack } from '../Config/ConsultaApiBack';
+import { UploadForm } from '../Components/Dashboard/UploadForm';
+import { ResultSummary } from '../Components/Dashboard/ResultSummary';
+import { ProcessingSteps } from '../Components/Dashboard/ProcessingSteps';
 import { BrainCircuit, Activity, AlertCircle } from 'lucide-react';
+import { AnalisisRespuesta } from '../Types/Anemia';
 
-const Dashboard = () => {
-    const [form, setForm] = useState({});
-    const [respuesta, setRespuesta] = useState(null);
+const Dashboard: React.FC = () => {
+    const [form, setForm] = useState<any>({});
+    const [respuesta, setRespuesta] = useState<AnalisisRespuesta | null>(null);
     const [cargando, setCargando] = useState(false);
-    const formRef = useRef(null);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!form?.img) return toast.error('Por favor, selecciona una imagen');
         
@@ -20,11 +20,11 @@ const Dashboard = () => {
             const formData = new FormData();
             formData.append('imagen', form.img);
             setCargando(true);
-            const resultado = await consultaApiBack('/modelo/evaluar_imagen_anemia/', 'POST', formData, true);
+            const resultado = await consultaApiBack<AnalisisRespuesta>('/modelo/evaluar_imagen_anemia/', 'POST', formData, true);
             setRespuesta(resultado);
             setTimeout(() => document.getElementById('res')?.scrollIntoView({ behavior: 'smooth' }), 100);
-        } catch (error) {
-            setRespuesta({ error: error.message });
+        } catch (error: any) {
+            setRespuesta({ error: error.message } as any);
         } finally {
             setCargando(false);
         }
@@ -33,7 +33,6 @@ const Dashboard = () => {
     const handleCancelar = () => {
         setForm({});
         setRespuesta(null);
-        if (formRef.current) formRef.current.reset();
     };
 
     return (
@@ -48,13 +47,7 @@ const Dashboard = () => {
 
             <main className="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[400px,1fr] gap-8">
                 <div className="space-y-6">
-                    <UploadForm 
-                        onUpload={handleSubmit} 
-                        setForm={setForm} 
-                        form={form} 
-                        cargando={cargando} 
-                        onCancel={handleCancelar} 
-                    />
+                    <UploadForm onUpload={handleSubmit} setForm={setForm} form={form} cargando={cargando} onCancel={handleCancelar} />
                     <div className="bg-rose-50 border border-rose-100 p-4 rounded-xl flex gap-3">
                         <AlertCircle className="size-5 text-rose-500 shrink-0" />
                         <p className="text-[10px] text-rose-700 leading-normal">
@@ -74,10 +67,12 @@ const Dashboard = () => {
                             {respuesta?.error ? (
                                 <div className="p-4 bg-rose-50 text-rose-600 rounded-xl border border-rose-100 text-sm font-medium">{respuesta.error}</div>
                             ) : (
-                                <>
-                                    <ResultSummary respuesta={respuesta} />
-                                    <ProcessingSteps respuesta={respuesta} />
-                                </>
+                                respuesta && (
+                                    <>
+                                        <ResultSummary respuesta={respuesta} />
+                                        <ProcessingSteps respuesta={respuesta} />
+                                    </>
+                                )
                             )}
                         </div>
                     )}

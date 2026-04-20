@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast';
 import axios, { AxiosRequestConfig, AxiosError, Method } from 'axios';
 
-export const BASE_URL = 'http://127.0.0.1:8000';
+export const BASE_URL = 'http://localhost:8000';
 
 export async function consultaApiBack<T = any>(
     url: string,

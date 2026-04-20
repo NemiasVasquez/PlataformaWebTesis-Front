@@ -1,8 +1,8 @@
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
-import { cn } from '../lib/utils.ts';
-import { LibreriaIconos } from '../Scripts/LibreriaIconos.jsx';
+import { cn } from '../lib/utils';
+import { LibreriaIconos } from '../Scripts/LibreriaIconos';
 
 const buttonVariants = cva(
     'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 disabled:bg-gray-500 [&_svg]:pointer-events-none [&_svg:not([class*="size-"])]:size-4 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
@@ -67,7 +67,7 @@ function Button({
 
     // Obtener ícono de librería por prioridad
     const icon =
-        showIcon && (iconName ? LibreriaIconos[iconName] : LibreriaIconos[variant] ?? (shouldShowSuccessIcon ? LibreriaIconos.success : null));
+        showIcon && (iconName ? LibreriaIconos[iconName] : (variant && variant in LibreriaIconos ? LibreriaIconos[variant as keyof typeof LibreriaIconos] : (shouldShowSuccessIcon ? LibreriaIconos.success : null)));
 
     const content = (
         <span className="inline-flex items-center gap-2">

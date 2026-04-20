@@ -1,9 +1,17 @@
 import React from 'react';
-import { RenderInput } from '../../Elements/RenderInput.tsx';
-import { Button } from '../button.tsx';
+import { RenderInput } from '../../Elements/RenderInput';
+import { Button } from '../button';
 import { BrainCircuit, RefreshCcw, Info } from 'lucide-react';
 
-export const UploadForm = ({ onUpload, setForm, form, cargando, onCancel }) => {
+interface Props {
+    onUpload: (e: React.FormEvent) => void;
+    setForm: React.Dispatch<React.SetStateAction<any>>;
+    form: any;
+    cargando: boolean;
+    onCancel: () => void;
+}
+
+export const UploadForm: React.FC<Props> = ({ onUpload, setForm, form, cargando, onCancel }) => {
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
             <div className="mb-6">
@@ -14,35 +22,17 @@ export const UploadForm = ({ onUpload, setForm, form, cargando, onCancel }) => {
             </div>
 
             <form onSubmit={onUpload} className="space-y-6">
-                <div className="relative">
-                    <RenderInput
-                        widthFile="100%"
-                        heightFile="240px"
-                        type="file"
-                        accept=".jpg,.png,.jpeg"
-                        name="img"
-                        label="Captura de Conjuntiva"
-                        setForm={setForm}
-                        className="border-2 border-dashed border-slate-200 rounded-xl hover:bg-rose-50/50 transition-colors"
-                    />
-                </div>
+                <RenderInput
+                    widthFile="100%" heightFile="240px" type="file"
+                    accept=".jpg,.png,.jpeg" name="img" label="Captura de Conjuntiva"
+                    setForm={setForm} className="border-2 border-dashed border-slate-200 rounded-xl"
+                />
 
                 <div className="flex gap-3">
-                    <Button
-                        type="button"
-                        onClick={onCancel}
-                        variant="cancelar"
-                        disabled={cargando}
-                        className="flex-1 py-4 text-sm font-semibold"
-                    >
+                    <Button type="button" onClick={onCancel} variant="cancelar" disabled={cargando} className="flex-1 py-4 text-sm font-semibold">
                         Limpiar
                     </Button>
-                    <Button
-                        type="submit"
-                        variant="success"
-                        disabled={cargando}
-                        className="flex-[2] py-4 text-sm font-semibold shadow-sm"
-                    >
+                    <Button type="submit" variant="success" disabled={cargando} className="flex-[2] py-4 text-sm font-semibold shadow-sm">
                         {cargando ? (
                             <span className="flex items-center justify-center gap-2">
                                 <RefreshCcw className="size-4 animate-spin" /> Procesando

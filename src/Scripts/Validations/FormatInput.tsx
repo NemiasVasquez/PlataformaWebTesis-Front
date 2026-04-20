@@ -5,7 +5,7 @@ export const validarContenidoInput = (
   type: ValidationType,
   maxLength: number = 0
 ): string => {
-  let pattern: RegExp;
+  let pattern = /$^/; 
 
   switch (type) {
     case 'alfa':
