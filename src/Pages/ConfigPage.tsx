@@ -61,7 +61,7 @@ export const ConfigPage: React.FC = () => {
     };
 
     const acciones = [
-        { id: 'ejecutar_todo', label: 'Ejecutar Todo el Proceso', icon: <Play className="size-4" />, variant: 'success' as const },
+        { id: 'ejecutar_todo', label: 'Proceso Completo', icon: <Play className="size-4" />, variant: 'success' as const },
         { id: 'filtrar', label: '1. Filtrar Imágenes', icon: <RefreshCcw className="size-4" /> },
         { id: 'balancear', label: '2. Balancear Dataset', icon: <RefreshCcw className="size-4" /> },
         { id: 'segmentar', label: '3. Segmentar Conjuntiva', icon: <RefreshCcw className="size-4" /> },
