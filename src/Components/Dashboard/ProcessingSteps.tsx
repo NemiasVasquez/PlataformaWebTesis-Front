@@ -25,13 +25,12 @@ export const ProcessingSteps: React.FC<{ respuesta: AnalisisRespuesta }> = ({ re
         }
         
         const folderClase = folderName.toUpperCase().replace(/ /g, '%20');
-        // Quitamos Date.now() del render directo para evitar bucles de carga
         return `${BASE_URL}/${baseDir}/${step.path}/${folderClase}/imagen.${step.ext}`;
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-            <div className="flex items-center gap-2 mb-6 text-slate-900">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 transition-colors duration-300">
+            <div className="flex items-center gap-2 mb-6 text-slate-900 dark:text-white">
                 <Microscope className="size-5 text-blue-600" />
                 <h3 className="text-lg font-bold">Proceso de Visión Artificial</h3>
             </div>
@@ -39,7 +38,7 @@ export const ProcessingSteps: React.FC<{ respuesta: AnalisisRespuesta }> = ({ re
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
                 {STEPS.map((step) => (
                     <div key={step.path} onClick={() => setSelectedStep(step)} className="group cursor-pointer">
-                        <div className="relative aspect-square bg-slate-50 rounded-xl overflow-hidden border border-slate-200 hover:border-rose-400 transition-all">
+                        <div className="relative aspect-square bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-rose-400 transition-all">
                             <img 
                                 src={getImgUrl(step)} 
                                 alt={step.title} 
@@ -50,19 +49,19 @@ export const ProcessingSteps: React.FC<{ respuesta: AnalisisRespuesta }> = ({ re
                                 <Maximize2 className="text-white size-5" />
                             </div>
                         </div>
-                        <span className="block text-[10px] font-bold text-slate-500 uppercase text-center mt-2 truncate">{step.title}</span>
+                        <span className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase text-center mt-2 truncate">{step.title}</span>
                     </div>
                 ))}
             </div>
 
             {selectedStep && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm" onClick={() => setSelectedStep(null)}>
-                    <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden max-w-2xl w-full" onClick={e => e.stopPropagation()}>
-                        <div className="p-4 border-b flex justify-between items-center bg-slate-50">
-                            <div className="text-sm font-bold">{selectedStep.title} - {selectedStep.desc}</div>
-                            <button onClick={() => setSelectedStep(null)} className="p-1 hover:bg-slate-200 rounded-full"><X className="size-5"/></button>
+                    <div className="relative bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden max-w-2xl w-full" onClick={e => e.stopPropagation()}>
+                        <div className="p-4 border-b dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800">
+                            <div className="text-sm font-bold dark:text-white">{selectedStep.title} - {selectedStep.desc}</div>
+                            <button onClick={() => setSelectedStep(null)} className="p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full dark:text-white"><X className="size-5"/></button>
                         </div>
-                        <div className="p-4 bg-slate-100 text-center">
+                        <div className="p-4 bg-slate-100 dark:bg-slate-950 text-center">
                             <img 
                                 src={getImgUrl(selectedStep)} 
                                 className="max-w-full h-auto mx-auto rounded-lg" 

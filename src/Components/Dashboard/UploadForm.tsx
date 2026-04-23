@@ -13,10 +13,10 @@ interface Props {
 
 export const UploadForm: React.FC<Props> = ({ onUpload, setForm, form, cargando, onCancel }) => {
     return (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 transition-colors duration-300">
             <div className="mb-6">
-                <h2 className="text-xl font-bold text-slate-900">Nueva Evaluación</h2>
-                <p className="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">Nueva Evaluación</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-1">
                     <Info className="size-3.5" /> Suba una imagen clara de la conjuntiva
                 </p>
             </div>
@@ -25,7 +25,7 @@ export const UploadForm: React.FC<Props> = ({ onUpload, setForm, form, cargando,
                 <RenderInput
                     widthFile="100%" heightFile="240px" type="file"
                     accept=".jpg,.png,.jpeg" name="img" label="Captura de Conjuntiva"
-                    setForm={setForm} className="border-2 border-dashed border-slate-200 rounded-xl"
+                    setForm={setForm} className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl"
                 />
 
                 <div className="flex gap-3">
