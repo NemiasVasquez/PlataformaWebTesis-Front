@@ -12,8 +12,31 @@ const Dashboard: React.FC = () => {
     const [form, setForm] = useState<any>({});
     const [respuesta, setRespuesta] = useState<AnalisisRespuesta | null>(null);
     const [cargando, setCargando] = useState(false);
-    const [dark, setDark] = useState(false);
-    const [view, setView] = useState<'dashboard' | 'config'>('dashboard');
+    
+    // TEMA CAVERNÍCOLA: Recordar si cueva es oscura o brillante
+    const [dark, setDark] = useState(() => localStorage.getItem('theme') === 'dark');
+    
+    const [view, setView] = useState<'dashboard' | 'config'>(
+        window.location.pathname === '/configuracion' ? 'config' : 'dashboard'
+    );
+
+    React.useEffect(() => {
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }, [dark]);
+
+    React.useEffect(() => {
+        const handlePath = () => {
+            setView(window.location.pathname === '/configuracion' ? 'config' : 'dashboard');
+        };
+        window.addEventListener('popstate', handlePath);
+        return () => window.removeEventListener('popstate', handlePath);
+    }, []);
+
+    const changeView = (newView: 'dashboard' | 'config') => {
+        const path = newView === 'config' ? '/configuracion' : '/';
+        window.history.pushState({}, '', path);
+        setView(newView);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -45,7 +68,7 @@ const Dashboard: React.FC = () => {
                 <nav className="bg-white dark:bg-slate-900 border-b dark:border-slate-800 sticky top-0 z-50 px-6 py-4 transition-colors duration-300">
                     <div className="max-w-6xl mx-auto flex items-center justify-between">
                         <div className="flex items-center gap-6">
-                            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setView('dashboard')}>
+                            <div className="flex items-center gap-2 cursor-pointer" onClick={() => changeView('dashboard')}>
                                 <Activity className="text-rose-600" />
                                 <span className="font-extrabold text-xl tracking-tight dark:text-white">
                                     Anemia<span className="text-rose-600">IA</span>
@@ -54,13 +77,13 @@ const Dashboard: React.FC = () => {
                             
                             <div className="hidden sm:flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
                                 <button 
-                                    onClick={() => setView('dashboard')}
+                                    onClick={() => changeView('dashboard')}
                                     className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${view === 'dashboard' ? 'bg-white dark:bg-slate-700 shadow-sm text-rose-600 dark:text-rose-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}
                                 >
                                     <LayoutDashboard className="size-3.5" /> Dashboard
                                 </button>
                                 <button 
-                                    onClick={() => setView('config')}
+                                    onClick={() => changeView('config')}
                                     className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${view === 'config' ? 'bg-white dark:bg-slate-700 shadow-sm text-blue-600 dark:text-blue-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}
                                 >
                                     <Settings className="size-3.5" /> Config
