@@ -9,17 +9,23 @@ import { ExplorerHeader } from '../Components/Config/ExplorerHeader';
 import { ExplorerGrid } from '../Components/Config/ExplorerGrid';
 import { FileDetailModal } from '../Components/Config/FileDetailModal';
 import { DiscardModal } from '../Components/Config/DiscardModal';
+import { PageHeader } from '../Components/Common/PageHeader';
 
 interface FileInfo {
     name: string;
     url: string;
     size: string;
-    dimensions: string;
+    resolution: string;
+}
+
+interface FolderInfo {
+    name: string;
+    count: number;
 }
 
 interface ExplorerData {
     current_path: string;
-    folders: string[];
+    folders: FolderInfo[];
     files: FileInfo[];
     pagination: {
         total: number;
@@ -84,29 +90,26 @@ export const ConfigPage: React.FC = () => {
     };
 
     return (
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <header className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-blue-600 rounded-2xl shadow-lg shadow-blue-200 dark:shadow-none">
-                    <Settings className="text-white size-6" />
-                </div>
-                <div>
-                    <h1 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Configuración</h1>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">Control de procesos y archivos</p>
-                </div>
-            </header>
+        <div className="animate-in fade-in slide-in-from-right-4 duration-500">
+            <PageHeader 
+                title="Configuración" 
+                subtitle="Control de procesos y archivos" 
+                icon={Settings} 
+                iconBgColor="bg-blue-600" 
+            />
 
             <div className="grid lg:grid-cols-[350px,1fr] gap-8">
                 <aside className="space-y-6">
                     <ProcessActions cargando={cargando} onEjecutar={ejecutarAccion} />
                     <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/50 p-4 rounded-xl flex gap-3">
                         <AlertCircle className="size-5 text-rose-500 shrink-0" />
-                        <p className="text-[10px] text-rose-700 dark:text-rose-400 leading-normal font-medium uppercase">
-                            Limpieza automática de carpetas al procesar.
+                        <p className="text-[10px] text-rose-700 dark:text-rose-400 leading-normal font-black uppercase tracking-widest">
+                            Limpieza automática al procesar.
                         </p>
                     </div>
                 </aside>
 
-                <main className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col min-h-[600px] overflow-hidden">
+                <main className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col min-h-[600px] overflow-hidden">
                     <ExplorerHeader 
                         path={path} 
                         page={page} 

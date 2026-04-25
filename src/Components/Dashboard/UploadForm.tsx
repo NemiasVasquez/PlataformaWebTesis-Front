@@ -32,14 +32,14 @@ export const UploadForm: React.FC<Props> = ({ onUpload, setForm, form, cargando,
                     <Button type="button" onClick={onCancel} variant="cancelar" disabled={cargando} className="flex-1 py-4 text-sm font-semibold">
                         Limpiar
                     </Button>
-                    <Button type="submit" variant="success" disabled={cargando} className="flex-[2] py-4 text-sm font-semibold shadow-sm">
+                    <Button type="submit" showIcon={false} variant="success" disabled={cargando} className="flex-[2] py-4 text-sm font-semibold shadow-sm">
                         {cargando ? (
                             <span className="flex items-center justify-center gap-2">
                                 <RefreshCcw className="size-4 animate-spin" /> Procesando
                             </span>
                         ) : (
                             <span className="flex items-center justify-center gap-2">
-                                <BrainCircuit className="size-4" /> EJECUTAR IA
+                                <BrainCircuit className="size-4 rotate-90" /> EJECUTAR IA
                             </span>
                         )}
                     </Button>

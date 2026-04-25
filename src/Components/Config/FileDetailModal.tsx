@@ -6,7 +6,7 @@ interface FileInfo {
     name: string;
     url: string;
     size: string;
-    dimensions: string;
+    resolution: string;
 }
 
 interface FileDetailModalProps {
@@ -62,7 +62,7 @@ export const FileDetailModal: React.FC<FileDetailModalProps> = ({ file, path, on
                             <Property label="Nombre" value={file.name} />
                             <div className="grid grid-cols-2 gap-3">
                                 <Property label="Tamaño" value={file.size} />
-                                <Property label="Dimensiones" value={file.dimensions} />
+                                <Property label="Dimensiones" value={file.resolution || 'Procesando...'} />
                             </div>
                         </div>
                         

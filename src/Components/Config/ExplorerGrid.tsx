@@ -5,12 +5,17 @@ interface FileInfo {
     name: string;
     url: string;
     size: string;
-    dimensions: string;
+    resolution: string;
+}
+
+interface FolderInfo {
+    name: string;
+    count: number;
 }
 
 interface ExplorerGridProps {
     path: string;
-    folders: string[];
+    folders: FolderInfo[];
     files: FileInfo[];
     onFolderClick: (name: string) => void;
     onBack: () => void;
@@ -31,9 +36,12 @@ export const ExplorerGrid: React.FC<ExplorerGridProps> = ({ path, folders, files
                 )}
 
                 {folders.map((folder) => (
-                    <div key={folder} onClick={() => onFolderClick(folder)} className="group cursor-pointer p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-blue-400 hover:shadow-md transition-all flex flex-col items-center justify-center gap-2">
+                    <div key={folder.name} onClick={() => onFolderClick(folder.name)} className="group cursor-pointer p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-blue-400 hover:shadow-md transition-all flex flex-col items-center justify-center gap-2 relative overflow-hidden">
                         <Folder className="size-8 text-amber-500 fill-amber-500/20 group-hover:scale-110 transition-transform" />
-                        <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase text-center truncate w-full">{folder}</span>
+                        <span className="text-[10px] font-black text-slate-600 dark:text-slate-300 uppercase text-center truncate w-full">{folder.name}</span>
+                        <div className="absolute top-2 right-2 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-md">
+                            <span className="text-[8px] font-black text-slate-400 dark:text-slate-500">{folder.count}</span>
+                        </div>
                     </div>
                 ))}
 
