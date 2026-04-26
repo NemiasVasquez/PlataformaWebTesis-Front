@@ -21,6 +21,7 @@ export const ProcessActions: React.FC<ProcessActionsProps> = ({ cargando, onEjec
         { id: 'balancear', label: '2. Balancear Dataset', icon: <RefreshCcw className="size-4" /> },
         { id: 'segmentar', label: '3. Segmentar Conjuntiva', icon: <RefreshCcw className="size-4" /> },
         { id: 'redimensionar', label: '4. Redimensionar', icon: <RefreshCcw className="size-4" /> },
+        { id: 'aumentar', label: '5. Aumentar Dataset', icon: <RefreshCcw className="size-4" /> },
     ];
 
     return (
