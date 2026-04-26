@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 
 // Componentes Modularizados
 import { ProcessActions } from '../Components/Config/ProcessActions';
+import { DatasetActions } from '../Components/Config/DatasetActions';
 import { ExplorerHeader } from '../Components/Config/ExplorerHeader';
 import { ExplorerGrid } from '../Components/Config/ExplorerGrid';
 import { FileDetailModal } from '../Components/Config/FileDetailModal';
@@ -101,6 +102,7 @@ export const ConfigPage: React.FC = () => {
             <div className="grid lg:grid-cols-[350px,1fr] gap-8">
                 <aside className="space-y-6">
                     <ProcessActions cargando={cargando} onEjecutar={ejecutarAccion} />
+                    <DatasetActions cargando={cargando} onEjecutar={ejecutarAccion} />
                     <div className="bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/50 p-4 rounded-xl flex gap-3">
                         <AlertCircle className="size-5 text-rose-500 shrink-0" />
                         <p className="text-[10px] text-rose-700 dark:text-rose-400 leading-normal font-black uppercase tracking-widest">
