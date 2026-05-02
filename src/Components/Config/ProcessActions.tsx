@@ -17,11 +17,13 @@ interface ProcessActionsProps {
 export const ProcessActions: React.FC<ProcessActionsProps> = ({ cargando, onEjecutar }) => {
     const acciones: Action[] = [
         { id: 'ejecutar_todo', label: 'Proceso Completo', icon: <Play className="size-4" />, variant: 'success' },
-        { id: 'filtrar', label: '1. Filtrar Imágenes', icon: <RefreshCcw className="size-4" /> },
-        { id: 'balancear', label: '2. Balancear Dataset', icon: <RefreshCcw className="size-4" /> },
-        { id: 'segmentar', label: '3. Segmentar Conjuntiva', icon: <RefreshCcw className="size-4" /> },
-        { id: 'redimensionar', label: '4. Redimensionar', icon: <RefreshCcw className="size-4" /> },
-        { id: 'aumentar', label: '5. Aumentar Dataset', icon: <RefreshCcw className="size-4" /> },
+        { id: 'prueba_rapida', label: 'Prueba rápida (20+20)', icon: <Play className="size-4" />, variant: 'optional' },
+        { id: 'recortar_ojo', label: '1. Recortar Ojos', icon: <RefreshCcw className="size-4" /> },
+        { id: 'filtrar', label: '2. Filtrar Imágenes', icon: <RefreshCcw className="size-4" /> },
+        { id: 'balancear', label: '3. Balancear Dataset', icon: <RefreshCcw className="size-4" /> },
+        { id: 'segmentar', label: '4. Segmentar Conjuntiva', icon: <RefreshCcw className="size-4" /> },
+        { id: 'redimensionar', label: '5. Redimensionar', icon: <RefreshCcw className="size-4" /> },
+        { id: 'aumentar', label: '6. Aumentar Dataset', icon: <RefreshCcw className="size-4" /> },
     ];
 
     return (

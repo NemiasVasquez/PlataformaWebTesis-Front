@@ -15,6 +15,7 @@ import { PageHeader } from '../Components/Common/PageHeader';
 interface FileInfo {
     name: string;
     url: string;
+    url_original?: string;
     size: string;
     resolution: string;
 }
@@ -63,7 +64,12 @@ export const ConfigPage: React.FC = () => {
             toast.loading(`Ejecutando ${nombre}...`, { id: 'prog' });
             await consultaApiBack(`/procesar/${endpoint}/`, 'GET');
             toast.success(`${nombre} completado`, { id: 'prog' });
-            cargarCarpeta(path, 1);
+            
+            if (endpoint === 'prueba_rapida') {
+                cargarCarpeta('prueba_rapida/recortadas', 1);
+            } else {
+                cargarCarpeta(path, 1);
+            }
         } catch (error: any) {
             toast.error(`Error: ${error.message}`, { id: 'prog' });
         } finally {

@@ -5,6 +5,7 @@ import { Button } from '../button';
 interface FileInfo {
     name: string;
     url: string;
+    url_original?: string;
     size: string;
     resolution: string;
 }
@@ -25,7 +26,7 @@ export const FileDetailModal: React.FC<FileDetailModalProps> = ({ file, path, on
             onClick={onClose}
         >
             <div 
-                className="relative bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden max-w-4xl w-full border dark:border-slate-800" 
+                className="relative bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden max-w-6xl w-full border dark:border-slate-800" 
                 onClick={e => e.stopPropagation()}
             >
                 <div className="p-5 border-b dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
@@ -44,13 +45,27 @@ export const FileDetailModal: React.FC<FileDetailModalProps> = ({ file, path, on
                 </div>
                 
                 <div className="grid md:grid-cols-[1fr,300px]">
-                    <div className="p-6 bg-slate-100 dark:bg-slate-950 flex items-center justify-center min-h-[300px]">
-                        <img 
-                            src={`http://localhost:8000${file.url}`} 
-                            className="max-w-full max-h-[70vh] rounded-2xl shadow-2xl" 
-                            alt="Detalle" 
-                            crossOrigin="anonymous" 
-                        />
+                    <div className="p-6 bg-slate-100 dark:bg-slate-950 flex flex-col md:flex-row items-center justify-center gap-6 overflow-auto min-h-[300px] max-h-[75vh]">
+                        {file.url_original && (
+                            <div className="flex flex-col items-center gap-2">
+                                <span className="text-[10px] font-black text-slate-400 tracking-widest uppercase bg-white dark:bg-slate-800 px-3 py-1 rounded-full shadow-sm">Foto Original</span>
+                                <img 
+                                    src={`http://localhost:8000${file.url_original}`} 
+                                    className="max-w-full max-h-[50vh] object-contain rounded-2xl shadow-xl border-4 border-white dark:border-slate-800" 
+                                    alt="Original" 
+                                    crossOrigin="anonymous" 
+                                />
+                            </div>
+                        )}
+                        <div className="flex flex-col items-center gap-2">
+                            <span className="text-[10px] font-black text-blue-500 tracking-widest uppercase bg-blue-50 dark:bg-blue-900/30 px-3 py-1 rounded-full shadow-sm">Recorte / Proceso actual</span>
+                            <img 
+                                src={`http://localhost:8000${file.url}`} 
+                                className="max-w-full max-h-[60vh] object-contain rounded-2xl shadow-2xl border-4 border-blue-500/20" 
+                                alt="Recortada" 
+                                crossOrigin="anonymous" 
+                            />
+                        </div>
                     </div>
                     
                     <div className="p-6 bg-white dark:bg-slate-900 space-y-6">
