@@ -52,6 +52,41 @@ const rcapInterpretations = [
     }
 ];
 
+const pInterpretations = [
+    {
+        min: 0.0,
+        max: 50.0,
+        label: "Baja exactitud (Puntería pobre)",
+        desc: "El modelo se está distrayendo mucho con zonas fuera de la conjuntiva (falsos positivos). La explicación visual es difusa.",
+        colorClass: "bg-rose-50 text-rose-800 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900"
+    },
+    {
+        min: 50.01,
+        max: 80.0,
+        label: "Exactitud moderada/buena",
+        desc: "Buena coincidencia general. La mayor parte de la atención del modelo cae correctamente dentro de la conjuntiva.",
+        colorClass: "bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900"
+    },
+    {
+        min: 80.01,
+        max: 100.0,
+        label: "Alta exactitud (Excelente puntería)",
+        desc: "Casi todo lo que el modelo considera importante está perfectamente enmarcado dentro de la conjuntiva. Explicación muy limpia.",
+        colorClass: "bg-green-50 text-green-800 border-green-200 dark:bg-green-950/40 dark:text-green-300 dark:border-green-900"
+    }
+];
+
+const FormulaExactitud = () => (
+    <div className="flex items-center gap-2 whitespace-nowrap">
+        <span>P = </span>
+        <div className="flex flex-col items-center text-sm mx-2">
+            <span className="border-b border-current px-1">VP</span>
+            <span>VP + FP</span>
+        </div>
+        <span>× 100</span>
+    </div>
+);
+
 export const IndicadoresSection: React.FC<{ respuesta: AnalisisRespuesta }> = ({ respuesta }) => {
     if (!respuesta || respuesta.rcap === undefined) return null;
 
@@ -83,6 +118,23 @@ export const IndicadoresSection: React.FC<{ respuesta: AnalisisRespuesta }> = ({
                             ]}
                             interpretations={rcapInterpretations}
                         />
+
+                        {respuesta.exactitud !== undefined && (
+                            <IndicatorCard 
+                                title="b) Exactitud de áreas destacadas (P)"
+                                subtitle="Mide qué tan limpia es la explicación visual"
+                                value={respuesta.exactitud}
+                                expandedTitle="Precisión Espacial del Mapa de Prominencia"
+                                whatIsIt="Es una métrica de validación espacial. Verifica si el 'brillo' del mapa de calor coincide con la anatomía de la conjuntiva segmentada. Nos dice qué tan bien 'atina' el mapa al área correcta, sin distraerse con el resto del ojo."
+                                formulaLabel="Fórmula"
+                                formulaBlock={<FormulaExactitud />}
+                                formulaTerms={[
+                                    { name: "VP (Verdaderos Positivos)", text: "Píxeles donde tanto la conjuntiva como el mapa de calor coinciden (Intersección)." },
+                                    { name: "FP (Falsos Positivos)", text: "Píxeles donde el modelo 'prestó atención' pero que están fuera de la conjuntiva (distracción)." }
+                                ]}
+                                interpretations={pInterpretations}
+                            />
+                        )}
                     </div>
                 </div>
             </div>

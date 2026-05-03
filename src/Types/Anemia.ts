@@ -7,6 +7,7 @@ export interface AnalisisRespuesta {
     mensaje?: string;
     error?: string;
     rcap?: number;
+    exactitud?: number;
 }
 
 export interface Step {
