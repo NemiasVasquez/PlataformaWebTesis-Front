@@ -3,6 +3,7 @@ export interface AnalisisRespuesta {
     probable_clase: string;
     categoria: string;
     prediccion: number;
+    confianza?: number;
     mensaje?: string;
     error?: string;
 }

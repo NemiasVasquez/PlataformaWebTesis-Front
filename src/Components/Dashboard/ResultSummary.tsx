@@ -33,10 +33,10 @@ export const ResultSummary: React.FC<{ respuesta: AnalisisRespuesta }> = ({ resp
                         <div>
                             <div className="flex justify-between items-end mb-1.5">
                                 <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Confianza</span>
-                                <span className="text-sm font-black text-slate-700 dark:text-slate-300">95.7%</span>
+                                <span className="text-sm font-black text-slate-700 dark:text-slate-300">{respuesta.confianza != null ? `${respuesta.confianza}%` : 'N/A'}</span>
                             </div>
                             <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-200/50 dark:border-slate-700">
-                                <div className={`h-full rounded-full ${isAnemia ? 'bg-rose-500' : 'bg-green-500'}`} style={{ width: `95.7%` }}></div>
+                                <div className={`h-full rounded-full ${isAnemia ? 'bg-rose-500' : 'bg-green-500'}`} style={{ width: `${respuesta.confianza ?? 0}%` }}></div>
                             </div>
                         </div>
                     </div>
