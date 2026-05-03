@@ -6,6 +6,7 @@ export interface AnalisisRespuesta {
     confianza?: number;
     mensaje?: string;
     error?: string;
+    rcap?: number;
 }
 
 export interface Step {
@@ -13,4 +14,5 @@ export interface Step {
     path: string;
     desc: string;
     ext: "jpeg" | "png";
+    filename?: string;
 }

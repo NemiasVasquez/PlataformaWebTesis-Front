@@ -6,8 +6,8 @@ interface MainLayoutProps {
     children: React.ReactNode;
     dark: boolean;
     setDark: (val: boolean | ((prev: boolean) => boolean)) => void;
-    currentView: 'dashboard' | 'config';
-    onChangeView: (view: 'dashboard' | 'config') => void;
+    currentView: 'dashboard' | 'config' | 'indicadores';
+    onChangeView: (view: 'dashboard' | 'config' | 'indicadores') => void;
 }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children, dark, setDark, currentView, onChangeView }) => {
@@ -40,6 +40,13 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children, dark, setDark,
                                     icon={<Settings className="size-3.5" />}
                                     label="Config"
                                     activeColor="text-blue-600 dark:text-blue-400"
+                                />
+                                <NavButton 
+                                    active={currentView === 'indicadores'} 
+                                    onClick={() => onChangeView('indicadores')}
+                                    icon={<Activity className="size-3.5" />}
+                                    label="Indicadores"
+                                    activeColor="text-emerald-600 dark:text-emerald-400"
                                 />
                             </div>
                         </div>

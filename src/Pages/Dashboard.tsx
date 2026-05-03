@@ -4,7 +4,10 @@ import { consultaApiBack } from '../Config/ConsultaApiBack';
 import { UploadForm } from '../Components/Dashboard/UploadForm';
 import { ResultSummary } from '../Components/Dashboard/ResultSummary';
 import { ProcessingSteps } from '../Components/Dashboard/ProcessingSteps';
+import { SmoothGradSteps } from '../Components/Dashboard/SmoothGradSteps';
+import { IndicadoresSection } from '../Components/Dashboard/IndicadoresSection';
 import { ConfigPage } from './ConfigPage';
+import { IndicadoresPage } from './IndicadoresPage';
 import { BrainCircuit, AlertCircle } from 'lucide-react';
 import { AnalisisRespuesta } from '../Types/Anemia';
 import { MainLayout } from '../Components/Layout/MainLayout';
@@ -17,8 +20,9 @@ const Dashboard: React.FC = () => {
 
     // TEMA CAVERNÍCOLA: Recordar si cueva es oscura o brillante
     const [dark, setDark] = useState(() => localStorage.getItem('theme') === 'dark');
-    const [view, setView] = useState<'dashboard' | 'config'>(
-        window.location.pathname === '/configuracion' ? 'config' : 'dashboard'
+    const [view, setView] = useState<'dashboard' | 'config' | 'indicadores'>(
+        window.location.pathname === '/configuracion' ? 'config' : 
+        window.location.pathname === '/indicadores' ? 'indicadores' : 'dashboard'
     );
 
     useEffect(() => {
@@ -26,13 +30,16 @@ const Dashboard: React.FC = () => {
     }, [dark]);
 
     useEffect(() => {
-        const handlePath = () => setView(window.location.pathname === '/configuracion' ? 'config' : 'dashboard');
+        const handlePath = () => {
+            const path = window.location.pathname;
+            setView(path === '/configuracion' ? 'config' : path === '/indicadores' ? 'indicadores' : 'dashboard');
+        };
         window.addEventListener('popstate', handlePath);
         return () => window.removeEventListener('popstate', handlePath);
     }, []);
 
-    const changeView = (newView: 'dashboard' | 'config') => {
-        const path = newView === 'config' ? '/configuracion' : '/';
+    const changeView = (newView: 'dashboard' | 'config' | 'indicadores') => {
+        const path = newView === 'config' ? '/configuracion' : newView === 'indicadores' ? '/indicadores' : '/';
         window.history.pushState({}, '', path);
         setView(newView);
     };
@@ -85,14 +92,18 @@ const Dashboard: React.FC = () => {
                                     <>
                                         <ResultSummary respuesta={respuesta} />
                                         <ProcessingSteps respuesta={respuesta} />
+                                        <SmoothGradSteps respuesta={respuesta} />
+                                        <IndicadoresSection respuesta={respuesta} />
                                     </>
                                 )}
                             </div>
                         )}
                     </div>
                 </div>
-            ) : (
+            ) : view === 'config' ? (
                 <ConfigPage />
+            ) : (
+                <IndicadoresPage />
             )}
         </MainLayout>
     );
