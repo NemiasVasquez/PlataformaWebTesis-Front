@@ -10,6 +10,7 @@ export interface AnalisisRespuesta {
     exactitud?: number;
     robustez?: number;
     transparencia?: number;
+    sensibilidad?: number;
     tiempo?: number;
 }
 
