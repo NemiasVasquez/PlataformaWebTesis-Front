@@ -13,6 +13,7 @@ interface IndicatorCardProps {
     title: string;
     subtitle: string;
     value: number;
+    unit?: string;
     expandedTitle: string;
     whatIsIt: string;
     formulaLabel: string;
@@ -22,7 +23,7 @@ interface IndicatorCardProps {
 }
 
 export const IndicatorCard: React.FC<IndicatorCardProps> = ({
-    title, subtitle, value, expandedTitle, whatIsIt, formulaLabel, formulaBlock, formulaTerms, interpretations
+    title, subtitle, value, unit, expandedTitle, whatIsIt, formulaLabel, formulaBlock, formulaTerms, interpretations
 }) => {
     const [expanded, setExpanded] = useState(false);
 
@@ -42,7 +43,9 @@ export const IndicatorCard: React.FC<IndicatorCardProps> = ({
                     <span className="text-xs text-slate-500 dark:text-slate-400">{subtitle}</span>
                 </div>
                 <div className="flex items-center gap-4">
-                    <span className="text-xl font-black text-indigo-600 dark:text-indigo-400">{value}</span>
+                    <span className="text-xl font-black text-indigo-600 dark:text-indigo-400">
+                        {value} {unit}
+                    </span>
                     {expanded ? <ChevronUp className="size-5 text-slate-400" /> : <ChevronDown className="size-5 text-slate-400" />}
                 </div>
             </div>
@@ -76,7 +79,7 @@ export const IndicatorCard: React.FC<IndicatorCardProps> = ({
                     <div className="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700">
                         <div className="flex items-center gap-2 mb-3">
                             <Info className="size-4 text-slate-400" />
-                            <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Interpretación de tu resultado ({value})</span>
+                            <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Interpretación de tu resultado ({value} {unit})</span>
                         </div>
                         <div className={`p-4 rounded-lg border ${currentInt.colorClass}`}>
                             <p className="font-bold text-sm mb-1">{currentInt.label}</p>

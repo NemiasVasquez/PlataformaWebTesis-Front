@@ -8,6 +8,9 @@ export interface AnalisisRespuesta {
     error?: string;
     rcap?: number;
     exactitud?: number;
+    robustez?: number;
+    transparencia?: number;
+    tiempo?: number;
 }
 
 export interface Step {

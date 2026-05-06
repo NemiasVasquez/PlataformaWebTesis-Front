@@ -37,7 +37,7 @@ export async function consultaApiBack<T = any>(
         const response = await axios<T>(config);
 
         if (mostrarToast && toastId) {
-            toast.success('✅ Completado', { id: toastId });
+            toast.success('Completado', { id: toastId });
         }
 
         return response.data;
