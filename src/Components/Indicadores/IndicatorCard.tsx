@@ -18,12 +18,12 @@ interface IndicatorCardProps {
     whatIsIt: string;
     formulaLabel: string;
     formulaBlock: React.ReactNode;
-    formulaTerms: { name: string; text: string }[];
+    formulaTerms?: { name: string; text: string }[];
     interpretations: Interpretation[];
 }
 
 export const IndicatorCard: React.FC<IndicatorCardProps> = ({
-    title, subtitle, value, unit, expandedTitle, whatIsIt, formulaLabel, formulaBlock, formulaTerms, interpretations
+    title, subtitle, value, unit, expandedTitle, whatIsIt, formulaLabel, formulaBlock, formulaTerms = [], interpretations
 }) => {
     const [expanded, setExpanded] = useState(false);
 

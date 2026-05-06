@@ -23,10 +23,10 @@ export const IndicadoresSection: React.FC<{ respuesta: AnalisisRespuesta }> = ({
 
                     <div className="grid gap-4">
                         <IndicatorCard
-                            title="a) Claridad del Mapa (RCAP)"
+                            title="a) Nivel de Detalle (RCAP)"
                             subtitle="¿El modelo mira la zona correcta?"
                             value={respuesta.rcap}
-                            expandedTitle="Nivel de Detalle Visual"
+                            expandedTitle="RCAP (Relación de Concentración)"
                             whatIsIt="Mide si el modelo se concentra en la conjuntiva para decidir o si se distrae con el fondo de la imagen."
                             formulaLabel="Fórmula RCAP"
                             formulaBlock={<Data.FormulaVisual />}
@@ -84,7 +84,7 @@ export const IndicadoresSection: React.FC<{ respuesta: AnalisisRespuesta }> = ({
                     <div className="grid gap-4">
                         {respuesta.robustez !== undefined && (
                             <IndicatorCard
-                                title="a) Seguridad del Modelo (RG)"
+                                title="a) Robustez de los Resultados (RG)"
                                 subtitle="Firmeza de la decisión"
                                 value={respuesta.robustez}
                                 expandedTitle="Robustez de Predicción (RG)"
@@ -101,11 +101,11 @@ export const IndicadoresSection: React.FC<{ respuesta: AnalisisRespuesta }> = ({
 
                         {respuesta.transparencia !== undefined && (
                             <IndicatorCard
-                                title="b) Consenso entre IAs (NT)"
+                                title="b) Visibilidad de Características Claras (NT)"
                                 subtitle="SHAP vs SmoothGrad"
                                 value={respuesta.transparencia}
                                 unit="%"
-                                expandedTitle="Transparencia (NT)"
+                                expandedTitle="Transparencia de Diagnóstico (NT)"
                                 whatIsIt="Mide si dos técnicas de IA diferentes están de acuerdo en qué parte del ojo indica la anemia."
                                 formulaLabel="Intersección"
                                 formulaBlock={<Data.FormulaTransparencia />}
@@ -119,7 +119,7 @@ export const IndicadoresSection: React.FC<{ respuesta: AnalisisRespuesta }> = ({
 
                         {respuesta.sensibilidad !== undefined && (
                             <IndicatorCard
-                                title="c) Firmeza ante Ruido (S)"
+                                title="c) Sensibilidad de la Explicabilidad (S)"
                                 subtitle="Resistencia del mapa visual"
                                 value={respuesta.sensibilidad}
                                 expandedTitle="Sensibilidad (S)"
